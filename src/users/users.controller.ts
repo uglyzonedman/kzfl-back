@@ -25,8 +25,8 @@ export class UsersController {
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Get('all')
-  @Roles('Админ')
-  @UseGuards(RolesGuard)
+  // @Roles('Админ')
+  // @UseGuards(RolesGuard)
   async getAll() {
     return this.usersService.getAll()
   }

@@ -13,6 +13,7 @@ import { GendersModule } from './genders/genders.module';
 import { LanguagesModule } from './languages/languages.module';
 import { CountriesModule } from './countries/countries.module';
 import { OrdersModule } from './orders/orders.module';
+import { RatingsModule } from './ratings/ratings.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { OrdersModule } from './orders/orders.module';
     LanguagesModule,
     CountriesModule,
     OrdersModule,
+    RatingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

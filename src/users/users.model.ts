@@ -6,6 +6,7 @@ import { GendersModel } from '../genders/genders.model'
 import { LanguagesModel } from '../languages/languages.model'
 import { CountriesModel } from '../countries/countries.model'
 import { OrdersModel } from '../orders/orders.model'
+import { RatingsModel } from "../ratings/ratings.model";
 
 @Entity('users')
 export class UsersModel extends Base {
@@ -29,6 +30,12 @@ export class UsersModel extends Base {
   @JoinColumn({ name: 'gender_id' })
   genders: GendersModel
 
+  @OneToMany(() => RatingsModel, rating => rating.owners)
+  rating_from: RatingsModel[]
+
+  @OneToMany(() => RatingsModel, rating => rating.users)
+  rating_to: RatingsModel[]
+
   @OneToMany(() => SkillsSelectedModel, skillsSelected => skillsSelected.skills)
   skillsSelected: SkillsSelectedModel[]
 
@@ -42,4 +49,7 @@ export class UsersModel extends Base {
 
   @OneToMany(() => OrdersModel, orders => orders.users)
   orders: OrdersModel[]
+
+  @Column({default: 4})
+  rating: number
 }

@@ -10,7 +10,7 @@ export class UsersService {
   constructor(@InjectRepository(UsersModel) private readonly usersModel: Repository<UsersModel>) {}
 
   async getAll() {
-    return await this.usersModel.find()
+    return await this.usersModel.find({relations: {rating_to: true}})
   }
 
   async getById(id: number) {
@@ -53,4 +53,6 @@ export class UsersService {
     await this.usersModel.save(user)
     return
   }
+
+
 }

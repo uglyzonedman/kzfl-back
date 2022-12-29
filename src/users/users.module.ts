@@ -6,10 +6,12 @@ import { UsersModel } from './users.model'
 import { ConfigModule } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
 import { JwtStrategy } from '../auth/stratigies/jwt.strategy'
+import { RatingsModel } from "../ratings/ratings.model";
+import { RatingsService } from "../ratings/ratings.service";
 
 @Module({
   controllers: [UsersController],
-  providers: [UsersService, JwtService, JwtStrategy],
-  imports: [TypeOrmModule.forFeature([UsersModel]), ConfigModule],
+  providers: [UsersService, JwtService, JwtStrategy,RatingsService],
+  imports: [TypeOrmModule.forFeature([UsersModel,RatingsModel]), ConfigModule],
 })
 export class UsersModule {}

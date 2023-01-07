@@ -1,14 +1,14 @@
 import {
   Body,
-  Controller,
+  Controller, Get,
   HttpCode,
   Param,
   Post,
   Put,
   UseGuards,
   UsePipes,
-  ValidationPipe,
-} from '@nestjs/common'
+  ValidationPipe
+} from "@nestjs/common";
 import { OrdersService } from './orders.service'
 import { User } from '../users/decorators/users.decorator'
 import { OrdersDto } from './dto/orders.dto'
@@ -32,5 +32,13 @@ export class OrdersController {
   @UseGuards(JwtAuthGuard)
   async updateOrder(@Param('id') id: number, @Body() dto: OrdersDto) {
     return this.ordersService.update(id, dto)
+  }
+
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Get('')
+  // @UseGuards(JwtAuthGuard)
+  async getAll() {
+    return this.ordersService.getAll()
   }
 }

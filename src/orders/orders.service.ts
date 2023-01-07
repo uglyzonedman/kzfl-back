@@ -28,4 +28,8 @@ export class OrdersService {
 
     return this.ordersModel.save({ ...order, ...dto })
   }
+
+  async getAll() {
+    return await this.ordersModel.find()
+  }
 }

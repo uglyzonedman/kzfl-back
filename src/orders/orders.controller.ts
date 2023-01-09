@@ -41,4 +41,12 @@ export class OrdersController {
   async getAll() {
     return this.ordersService.getAll()
   }
+
+
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Get(':id')
+  async getById(@Param("id") id: number) {
+    return this.ordersService.getById(id)
+  }
 }

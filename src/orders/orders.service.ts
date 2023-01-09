@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { OrdersModel } from './orders.model'
@@ -31,5 +31,13 @@ export class OrdersService {
 
   async getAll() {
     return await this.ordersModel.find()
+  }
+
+  async getById(id: number) {
+    const currentOrder = await this.ordersModel.findOneBy({id})
+
+    if (!currentOrder) throw new BadRequestException('Такого заказа нет')
+
+    return currentOrder
   }
 }

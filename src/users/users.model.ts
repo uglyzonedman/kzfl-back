@@ -7,6 +7,7 @@ import { LanguagesModel } from '../languages/languages.model'
 import { CountriesModel } from '../countries/countries.model'
 import { OrdersModel } from '../orders/orders.model'
 import { RatingsModel } from "../ratings/ratings.model";
+import { ProfessionsSelectedModel } from "../professions-selected/professions-selected.model";
 
 @Entity('users')
 export class UsersModel extends Base {
@@ -21,6 +22,12 @@ export class UsersModel extends Base {
 
   @Column({ default: '' })
   surname: string
+
+  @Column({default: 0})
+  phone: number
+
+  @Column({default: false})
+  isVery: boolean
 
   @ManyToOne(() => RolesModel, roles => roles.user)
   @JoinColumn({ name: 'role_id' })
@@ -38,6 +45,9 @@ export class UsersModel extends Base {
 
   @OneToMany(() => SkillsSelectedModel, skillsSelected => skillsSelected.skills)
   skillsSelected: SkillsSelectedModel[]
+
+  @OneToMany(() => ProfessionsSelectedModel, professionsSelected => professionsSelected.professions)
+  professionsSelected: ProfessionsSelectedModel[]
 
   @ManyToOne(() => LanguagesModel, languages => languages.user)
   @JoinColumn({ name: 'language_id' })

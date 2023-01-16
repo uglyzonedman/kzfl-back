@@ -14,6 +14,8 @@ import { LanguagesModule } from './languages/languages.module';
 import { CountriesModule } from './countries/countries.module';
 import { OrdersModule } from './orders/orders.module';
 import { RatingsModule } from './ratings/ratings.module';
+import { ProfessionsModule } from './professions/professions.module';
+import { ProfessionsSelectedModule } from './professions-selected/professions-selected.module';
 
 @Module({
   imports: [
@@ -42,6 +44,8 @@ import { RatingsModule } from './ratings/ratings.module';
     CountriesModule,
     OrdersModule,
     RatingsModule,
+    ProfessionsModule,
+    ProfessionsSelectedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

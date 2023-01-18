@@ -53,4 +53,12 @@ export class UsersController {
   async updateProfile(@User('id') id: number, @Body() dto: any) {
     return this.usersService.updateProfile(id, dto)
   }
+
+  @UsePipes(new ValidationPipe())
+  @Put('files')
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
+  async updatePhoto(@User('id') id: number, @Body() dto: any) {
+    return this.usersService.updatePhoto(id, dto)
+  }
 }

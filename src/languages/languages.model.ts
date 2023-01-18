@@ -7,6 +7,6 @@ export class LanguagesModel extends Base {
   @Column()
   name: string
 
-  @OneToMany(() => UsersModel, user => user.languages)
+  @OneToMany(() => UsersModel, user => user.languages,{onDelete: 'CASCADE'})
   user: UsersModel[]
 }

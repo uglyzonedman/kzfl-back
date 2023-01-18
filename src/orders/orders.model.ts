@@ -16,7 +16,7 @@ export class OrdersModel extends Base {
   @Column({ default: 0 })
   views: number
 
-  @ManyToOne(() => UsersModel, users => users.orders)
+  @ManyToOne(() => UsersModel, users => users.orders,{onDelete: 'CASCADE'})
   @JoinColumn({ name: 'user_id' })
   users: UsersModel
 }

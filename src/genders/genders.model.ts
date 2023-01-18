@@ -7,6 +7,6 @@ export class GendersModel extends Base {
   @Column()
   name: string
 
-  @OneToMany(() => UsersModel, user => user.genders)
+  @OneToMany(() => UsersModel, user => user.genders,{onDelete: 'CASCADE'})
   user: UsersModel[]
 }

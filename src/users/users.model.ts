@@ -29,35 +29,41 @@ export class UsersModel extends Base {
   @Column({default: false})
   isVery: boolean
 
-  @ManyToOne(() => RolesModel, roles => roles.user)
+  @Column({ default: `${'files/user.png'}` })
+  avatarPath: string
+
+  @Column({ default: '' })
+  about: string
+
+  @ManyToOne(() => RolesModel, roles => roles.user,{onDelete: 'CASCADE'})
   @JoinColumn({ name: 'role_id' })
   roles: RolesModel
 
-  @ManyToOne(() => GendersModel, genders => genders.user)
+  @ManyToOne(() => GendersModel, genders => genders.user,{onDelete: 'CASCADE'})
   @JoinColumn({ name: 'gender_id' })
   genders: GendersModel
 
-  @OneToMany(() => RatingsModel, rating => rating.owners)
+  @OneToMany(() => RatingsModel, rating => rating.owners,{onDelete: 'CASCADE'})
   rating_from: RatingsModel[]
 
-  @OneToMany(() => RatingsModel, rating => rating.users)
+  @OneToMany(() => RatingsModel, rating => rating.users,{onDelete: 'CASCADE'})
   rating_to: RatingsModel[]
 
-  @OneToMany(() => SkillsSelectedModel, skillsSelected => skillsSelected.skills)
+  @OneToMany(() => SkillsSelectedModel, skillsSelected => skillsSelected.skills,{onDelete: 'CASCADE'})
   skillsSelected: SkillsSelectedModel[]
 
-  @OneToMany(() => ProfessionsSelectedModel, professionsSelected => professionsSelected.professions)
+  @OneToMany(() => ProfessionsSelectedModel, professionsSelected => professionsSelected.professions,{onDelete: 'CASCADE'})
   professionsSelected: ProfessionsSelectedModel[]
 
-  @ManyToOne(() => LanguagesModel, languages => languages.user)
+  @ManyToOne(() => LanguagesModel, languages => languages.user,{onDelete: 'CASCADE'})
   @JoinColumn({ name: 'language_id' })
   languages: LanguagesModel
 
-  @ManyToOne(() => CountriesModel, countries => countries.user)
+  @ManyToOne(() => CountriesModel, countries => countries.user, {onDelete: 'CASCADE'})
   @JoinColumn({ name: 'country_id' })
   countries: CountriesModel
 
-  @OneToMany(() => OrdersModel, orders => orders.users)
+  @OneToMany(() => OrdersModel, orders => orders.users,{onDelete: 'CASCADE'})
   orders: OrdersModel[]
 
   @Column({default: 4})

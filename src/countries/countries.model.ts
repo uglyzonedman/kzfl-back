@@ -7,6 +7,6 @@ export class CountriesModel extends Base {
   @Column()
   name: string
 
-  @OneToMany(() => UsersModel, user => user.countries)
+  @OneToMany(() => UsersModel, user => user.countries,{onDelete: 'CASCADE'})
   user: UsersModel[]
 }

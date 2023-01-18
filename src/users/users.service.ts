@@ -22,6 +22,8 @@ export class UsersService {
         genders: true,
         languages: true,
         skillsSelected: { skills: true },
+        rating_to: {owners: true},
+        rating_from: true
       },
     })
 
@@ -54,5 +56,12 @@ export class UsersService {
     return
   }
 
+  async updatePhoto(id: number, dto: any) {
+    const user = await this.usersModel.findOneBy({ id })
+    user.avatarPath = dto.avatarPath
+
+    await this.usersModel.save(user)
+    return
+  }
 
 }

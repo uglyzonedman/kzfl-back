@@ -5,17 +5,23 @@ import { UsersModel } from "../users/users.model";
 
 @Entity('ratings')
 export class RatingsModel extends Base {
-  @Column()
+  @Column({default: 4.0})
   value: number
 
-  @Column()
+  @Column({default: ""})
   message: string
 
-  @ManyToOne(() => UsersModel, users => users.rating_from)
+  @Column({default: ""})
+  plus : string
+
+  @Column({default: ""})
+  minus: string
+
+  @ManyToOne(() => UsersModel, users => users.rating_from,{onDelete: 'CASCADE'})
   @JoinColumn({ name: 'owner_id' })
   owners: UsersModel
 
-  @ManyToOne(() => UsersModel, users => users.rating_to)
+  @ManyToOne(() => UsersModel, users => users.rating_to,{onDelete: 'CASCADE'})
   @JoinColumn({ name: 'user_id' })
   users: UsersModel
 }

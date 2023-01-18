@@ -5,9 +5,9 @@ import { SkillsModel } from '../skills/skills.model'
 
 @Entity('skills-selected')
 export class SkillsSelectedModel extends Base {
-  @ManyToOne(() => UsersModel, users => users.skillsSelected)
+  @ManyToOne(() => UsersModel, users => users.skillsSelected,{onDelete: 'CASCADE'})
   user: UsersModel
 
-  @ManyToOne(() => SkillsModel, skills => skills.skillsSelected)
+  @ManyToOne(() => SkillsModel, skills => skills.skillsSelected,{onDelete: 'CASCADE'})
   skills: SkillsModel
 }

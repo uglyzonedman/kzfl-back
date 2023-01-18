@@ -16,9 +16,14 @@ import { OrdersModule } from './orders/orders.module';
 import { RatingsModule } from './ratings/ratings.module';
 import { ProfessionsModule } from './professions/professions.module';
 import { ProfessionsSelectedModule } from './professions-selected/professions-selected.module';
+import { FilesModule } from './files/files.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
+    MulterModule.register({
+      dest: './uploads',
+    }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -46,6 +51,7 @@ import { ProfessionsSelectedModule } from './professions-selected/professions-se
     RatingsModule,
     ProfessionsModule,
     ProfessionsSelectedModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

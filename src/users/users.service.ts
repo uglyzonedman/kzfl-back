@@ -10,7 +10,7 @@ export class UsersService {
   constructor(@InjectRepository(UsersModel) private readonly usersModel: Repository<UsersModel>) {}
 
   async getAll() {
-    return await this.usersModel.find({relations: {rating_to: true}})
+    return await this.usersModel.find({ relations: { rating_to: true } })
   }
 
   async getById(id: number) {
@@ -22,10 +22,10 @@ export class UsersService {
         genders: true,
         languages: true,
         skillsSelected: { skills: true },
-        rating_to: {owners: true},
+        rating_to: { owners: true },
         rating_from: true,
         city: true,
-        professionsSelected: {professions: true}
+        professionsSelected: { professions: true },
       },
     })
 
@@ -43,10 +43,10 @@ export class UsersService {
         genders: true,
         languages: true,
         skillsSelected: { skills: true },
-        rating_to: {owners: true},
+        rating_to: { owners: true },
         rating_from: true,
-        professionsSelected: {professions: true},
-        city: true
+        professionsSelected: { professions: true },
+        city: true,
       },
     })
 
@@ -88,13 +88,20 @@ export class UsersService {
   }
 
   async getAllFreelancers() {
-    return await this.usersModel.find({where: {roles: {
-      name: "freelancer"
-        }}, relations: {
-      rating_to: true,
+    return await this.usersModel.find({
+      where: {
+        roles: {
+          name: 'freelancer',
+        },
+      },
+      relations: {
+        rating_to: true,
         city: true,
-        countries: true
-      }})
+        countries: true,
+        professionsSelected: {
+          professions: true,
+        },
+      },
+    })
   }
-
 }

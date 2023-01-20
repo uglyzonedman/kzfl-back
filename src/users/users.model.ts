@@ -7,7 +7,8 @@ import { LanguagesModel } from '../languages/languages.model'
 import { CountriesModel } from '../countries/countries.model'
 import { OrdersModel } from '../orders/orders.model'
 import { RatingsModel } from "../ratings/ratings.model";
-import { ProfessionsSelectedModel } from "../professions-selected/professions-selected.model";
+import { ProfessionsSelectedModel } from "../professions/professions-selected.model";
+
 
 @Entity('users')
 export class UsersModel extends Base {
@@ -21,6 +22,9 @@ export class UsersModel extends Base {
   name: string
 
   @Column({ default: '' })
+  login: string
+
+  @Column({ default: '' })
   surname: string
 
   @Column({default: 0})
@@ -31,6 +35,8 @@ export class UsersModel extends Base {
 
   @Column({ default: `${'files/user.png'}` })
   avatarPath: string
+
+
 
   @Column({ default: '' })
   about: string
@@ -52,16 +58,20 @@ export class UsersModel extends Base {
   @OneToMany(() => SkillsSelectedModel, skillsSelected => skillsSelected.skills,{onDelete: 'CASCADE'})
   skillsSelected: SkillsSelectedModel[]
 
-  @OneToMany(() => ProfessionsSelectedModel, professionsSelected => professionsSelected.professions,{onDelete: 'CASCADE'})
+  @OneToMany(() => ProfessionsSelectedModel, professionsSelected => professionsSelected.user,{onDelete: 'CASCADE'})
   professionsSelected: ProfessionsSelectedModel[]
 
   @ManyToOne(() => LanguagesModel, languages => languages.user,{onDelete: 'CASCADE'})
   @JoinColumn({ name: 'language_id' })
   languages: LanguagesModel
 
-  @ManyToOne(() => CountriesModel, countries => countries.user, {onDelete: 'CASCADE'})
+  @ManyToOne(() => CountriesModel, countries => countries.user_country, {onDelete: 'CASCADE'})
   @JoinColumn({ name: 'country_id' })
   countries: CountriesModel
+
+  @ManyToOne(() => CountriesModel, city => city.user_city, {onDelete: 'CASCADE'})
+  @JoinColumn({ name: 'city_id' })
+  city: CountriesModel
 
   @OneToMany(() => OrdersModel, orders => orders.users,{onDelete: 'CASCADE'})
   orders: OrdersModel[]

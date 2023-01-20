@@ -23,7 +23,30 @@ export class UsersService {
         languages: true,
         skillsSelected: { skills: true },
         rating_to: {owners: true},
-        rating_from: true
+        rating_from: true,
+        city: true,
+        professionsSelected: {professions: true}
+      },
+    })
+
+    if (!user) throw new BadRequestException('Пользователь не найден')
+
+    return user
+  }
+
+  async getByLogin(login: string) {
+    const user = await this.usersModel.findOne({
+      where: { login },
+      relations: {
+        countries: true,
+        roles: true,
+        genders: true,
+        languages: true,
+        skillsSelected: { skills: true },
+        rating_to: {owners: true},
+        rating_from: true,
+        professionsSelected: {professions: true},
+        city: true
       },
     })
 
@@ -62,6 +85,16 @@ export class UsersService {
 
     await this.usersModel.save(user)
     return
+  }
+
+  async getAllFreelancers() {
+    return await this.usersModel.find({where: {roles: {
+      name: "freelancer"
+        }}, relations: {
+      rating_to: true,
+        city: true,
+        countries: true
+      }})
   }
 
 }

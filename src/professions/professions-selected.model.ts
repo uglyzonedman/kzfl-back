@@ -1,7 +1,7 @@
 import { Base } from '../utils/base'
 import { UsersModel } from '../users/users.model'
 import { Entity, ManyToOne } from 'typeorm'
-import { ProfessionsModel } from "../professions/professions.model";
+import { ProfessionsModel } from "./professions.model";
 
 @Entity('profession-selected')
 export class ProfessionsSelectedModel extends Base {

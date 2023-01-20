@@ -33,9 +33,23 @@ export class UsersController {
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
-  @Get('profile/:id')
-  async getProfileUser(@Param('id') id: number) {
-    return this.usersService.getById(id)
+  @Get('freelancers')
+  async getAllFreelancers() {
+    return this.usersService.getAllFreelancers()
+  }
+
+  // @UsePipes(new ValidationPipe())
+  // @HttpCode(200)
+  // @Get('profile/:id')
+  // async getProfileUser(@Param('id') id: number) {
+  //   return this.usersService.getById(id)
+  // }
+
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Get('profile/:login')
+  async getProfileUser(@Param('login') login: string) {
+    return this.usersService.getByLogin(login)
   }
 
   @UsePipes(new ValidationPipe())

@@ -1,13 +1,19 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, OneToMany, Tree, TreeChildren, TreeParent } from "typeorm";
 import { Base } from "../utils/base";
-import { ProfessionsSelectedModule } from "../professions-selected/professions-selected.module";
-import { ProfessionsSelectedModel } from "../professions-selected/professions-selected.model";
+import { ProfessionsSelectedModel } from "./professions-selected.model";
 
 @Entity('professions')
+@Tree("materialized-path")
 export class ProfessionsModel extends Base {
   @Column({})
   name: string
 
+  @TreeChildren()
+  children: ProfessionsModel[]
+
+  @TreeParent()
+  parent: ProfessionsModel
+
   @OneToMany(() => ProfessionsSelectedModel, professionsSelected => professionsSelected.professions)
-  professionsSelected: ProfessionsSelectedModule[]
+  professionsSelected: ProfessionsSelectedModel[]
 }

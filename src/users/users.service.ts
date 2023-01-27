@@ -18,14 +18,14 @@ export class UsersService {
       where: { id },
       relations: {
         countries: true,
-        roles: true,
-        genders: true,
-        languages: true,
-        skillsSelected: { skills: true },
-        rating_to: { owners: true },
-        rating_from: true,
-        city: true,
-        professionsSelected: { professions: true },
+              roles: true,
+              genders: true,
+              languages: true,
+              skillsSelected: { skills: true },
+              rating_to: { owners: true },
+              rating_from: true,
+              professionsSelected: { professions: true },
+              city: true,
       },
     })
 
@@ -34,26 +34,26 @@ export class UsersService {
     return user
   }
 
-  async getByLogin(login: string) {
-    const user = await this.usersModel.findOne({
-      where: { login },
-      relations: {
-        countries: true,
-        roles: true,
-        genders: true,
-        languages: true,
-        skillsSelected: { skills: true },
-        rating_to: { owners: true },
-        rating_from: true,
-        professionsSelected: { professions: true },
-        city: true,
-      },
-    })
-
-    if (!user) throw new BadRequestException('Пользователь не найден')
-
-    return user
-  }
+  // async getByLogin(login: string) {
+  //   const user = await this.usersModel.findOne({
+  //     where: { login },
+  //     relations: {
+  //       countries: true,
+  //       roles: true,
+  //       genders: true,
+  //       languages: true,
+  //       skillsSelected: { skills: true },
+  //       rating_to: { owners: true },
+  //       rating_from: true,
+  //       professionsSelected: { professions: true },
+  //       city: true,
+  //     },
+  //   })
+  //
+  //   if (!user) throw new BadRequestException('Пользователь не найден')
+  //
+  //   return user
+  // }
 
   async updateProfile(id: number, dto: UsersDto) {
     const user = await this.getById(id)
@@ -103,5 +103,30 @@ export class UsersService {
         },
       },
     })
+  }
+
+  async updateView(login: string) {
+    const user = await this.usersModel.findOne({
+      where: { login },
+      relations: {
+        countries: true,
+        roles: true,
+        genders: true,
+        languages: true,
+        skillsSelected: { skills: true },
+        rating_to: { owners: true },
+        rating_from: true,
+        professionsSelected: { professions: true },
+        city: true,
+      },
+    })
+
+    if (!user) throw new BadRequestException('Пользователь не найден')
+
+    user.view++
+
+    return await this.usersModel.save(user)
+
+
   }
 }

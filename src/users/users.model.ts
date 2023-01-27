@@ -78,4 +78,8 @@ export class UsersModel extends Base {
 
   @Column({default: 4})
   rating: number
+
+  @Column({default: 0})
+  view: number
+
 }

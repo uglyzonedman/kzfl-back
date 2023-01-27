@@ -49,4 +49,11 @@ export class OrdersController {
   async getById(@Param("id") id: number) {
     return this.ordersService.getById(id)
   }
+
+  @UsePipes(new ValidationPipe())
+  @Post('view/:id')
+  @HttpCode(200)
+  async updateView(@Param("id") id: number) {
+    return this.ordersService.updateView(id)
+  }
 }

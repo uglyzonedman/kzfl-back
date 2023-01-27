@@ -19,4 +19,11 @@ export class AuthController {
   async login(@Body() dto: AuthDto) {
     return this.authService.login(dto)
   }
+
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Post('login/access-token')
+  async getNewTokens(@Body() data: any) {
+    return this.authService.getNewTokens(data)
+  }
 }

@@ -40,4 +40,18 @@ export class OrdersService {
 
     return currentOrder
   }
+
+
+  async updateView(id: number) {
+    const order = await this.ordersModel.findOne({
+      where: { id },
+    })
+
+    if (!order) throw new BadRequestException('Заказ не найден')
+
+
+    order.views++
+    return await this.ordersModel.save(order)
+
+  }
 }

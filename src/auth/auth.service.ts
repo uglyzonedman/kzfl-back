@@ -17,9 +17,9 @@ export class AuthService {
 
   async register(dto: AuthDto) {
     const oldUser = await this.usersModel.findOneBy({ email: dto.email })
-    // if (oldUser) {
-    //   throw new BadRequestException('Пользователь с такой почтой уже существует')
-    // }
+    if (oldUser) {
+      throw new BadRequestException('Пользователь с такой почтой уже существует')
+    }
 
     const salt = await genSalt(10)
 
@@ -64,22 +64,22 @@ export class AuthService {
     }
   }
 
-  // async getNewTokens({ refreshToken }: RefreshTokenDto) {
-  //     if (!refreshToken) throw new UnauthorizedException('Пожалуйста, пройдите авторизацию')
-  //
-  //     const result = await this.jwtService.verifyAsync(refreshToken)
-  //
-  //     if (!result) throw new UnauthorizedException('Такого токена не существует.')
-  //
-  //     const user = await this.usersModel.findOne({ where: { id: result.id } })
-  //
-  //     const tokens = await this.createToken(user.id)
-  //
-  //     return {
-  //         user: this.returnUserFields(user),
-  //         ...tokens,
-  //     }
-  // }
+  async getNewTokens({ refreshToken }: RefreshTokenDto) {
+    if (!refreshToken) throw new UnauthorizedException('Please sign in!')
+
+    const result = await this.jwtService.verifyAsync(refreshToken)
+
+    if (!result) throw new UnauthorizedException('Invalid token or expired!')
+
+    const user = await this.usersModel.findOneBy(result.id)
+
+    const tokens = await this.createToken(user)
+
+    return {
+      user: this.returnUserFields(user),
+      ...tokens,
+    }
+  }
 
   async createToken(user: UsersModel) {
     const data = { id: user.id, email: user.email, roles: user.roles }
@@ -88,7 +88,7 @@ export class AuthService {
     })
 
     const accessToken = await this.jwtService.signAsync(data, {
-      expiresIn: '1h',
+      expiresIn: '24h',
     })
     return { refreshToken, accessToken }
   }

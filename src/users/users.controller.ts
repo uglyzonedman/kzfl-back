@@ -38,19 +38,19 @@ export class UsersController {
     return this.usersService.getAllFreelancers()
   }
 
-  // @UsePipes(new ValidationPipe())
-  // @HttpCode(200)
-  // @Get('profile/:id')
-  // async getProfileUser(@Param('id') id: number) {
-  //   return this.usersService.getById(id)
-  // }
-
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
-  @Get('profile/:login')
-  async getProfileUser(@Param('login') login: string) {
-    return this.usersService.getByLogin(login)
+  @Get('profile/:id')
+  async getProfileUser(@Param('id') id: number) {
+    return this.usersService.getById(id)
   }
+
+  // @UsePipes(new ValidationPipe())
+  // @HttpCode(200)
+  // @Get('profile/:login')
+  // async getProfileUser(@Param('login') login: string) {
+  //   return this.usersService.getByLogin(login)
+  // }
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
@@ -75,4 +75,14 @@ export class UsersController {
   async updatePhoto(@User('id') id: number, @Body() dto: any) {
     return this.usersService.updatePhoto(id, dto)
   }
+
+  @UsePipes(new ValidationPipe())
+  @Post('update-view/:login')
+  @HttpCode(200)
+  async updateView(@Param("login") login: string) {
+    return this.usersService.updateView(login)
+  }
+
+
+
 }

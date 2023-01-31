@@ -9,4 +9,6 @@ export class AuthDto {
 
     name: string
     surname: string
+
+    roleId: number
 }

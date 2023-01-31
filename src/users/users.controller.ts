@@ -45,19 +45,20 @@ export class UsersController {
     return this.usersService.getById(id)
   }
 
-  // @UsePipes(new ValidationPipe())
-  // @HttpCode(200)
-  // @Get('profile/:login')
-  // async getProfileUser(@Param('login') login: string) {
-  //   return this.usersService.getByLogin(login)
-  // }
-
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Get('profile')
   @UseGuards(JwtAuthGuard)
   async getProfile(@User('id') id: number) {
     return this.usersService.getById(id)
+  }
+
+  @UsePipes(new ValidationPipe())
+  @Put('profile/description')
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
+  async updateDescription(@User('id') id: number, @Body() dto: any) {
+    return this.usersService.updateDescription(id, dto)
   }
 
   @UsePipes(new ValidationPipe())
@@ -68,8 +69,9 @@ export class UsersController {
     return this.usersService.updateProfile(id, dto)
   }
 
+
   @UsePipes(new ValidationPipe())
-  @Put('files')
+  @Patch('files')
   @HttpCode(200)
   @UseGuards(JwtAuthGuard)
   async updatePhoto(@User('id') id: number, @Body() dto: any) {
@@ -82,7 +84,5 @@ export class UsersController {
   async updateView(@Param("login") login: string) {
     return this.usersService.updateView(login)
   }
-
-
 
 }

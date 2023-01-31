@@ -82,4 +82,7 @@ export class UsersModel extends Base {
   @Column({default: 0})
   view: number
 
+  @Column({ default: '' })
+  title: string
+
 }

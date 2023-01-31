@@ -9,4 +9,8 @@ export class CountriesController {
   async getAll() {
     return this.countriesService.getAll()
   }
+  @Get('country')
+  async getCountry() {
+    return this.countriesService.getCountry()
+  }
 }

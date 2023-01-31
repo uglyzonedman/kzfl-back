@@ -4,6 +4,9 @@ export class UsersDto {
   surname?: string
   genders?: any
   languages?: any
-  countries?: any
+  countriesId?: any
+  cityId?: any
   password?: string
+  about?: string
+  title?: string
 }

@@ -9,15 +9,15 @@ import { RolesModule } from './roles/roles.module'
 import { JwtStrategy } from './auth/stratigies/jwt.strategy'
 import { SkillsModule } from './skills/skills.module'
 import { SkillsSelectedModule } from './skills-selected/skills-selected.module'
-import { GendersModule } from './genders/genders.module';
-import { LanguagesModule } from './languages/languages.module';
-import { CountriesModule } from './countries/countries.module';
-import { OrdersModule } from './orders/orders.module';
-import { RatingsModule } from './ratings/ratings.module';
-import { ProfessionsModule } from './professions/professions.module';
-import { FilesModule } from './files/files.module';
-import { MulterModule } from '@nestjs/platform-express';
-import { CategoriesModule } from './categories/categories.module';
+import { GendersModule } from './genders/genders.module'
+import { LanguagesModule } from './languages/languages.module'
+import { CountriesModule } from './countries/countries.module'
+import { OrdersModule } from './orders/orders.module'
+import { RatingsModule } from './ratings/ratings.module'
+import { ProfessionsModule } from './professions/professions.module'
+import { FilesModule } from './files/files.module'
+import { MulterModule } from '@nestjs/platform-express'
+import { CategoriesModule } from './categories/categories.module'
 
 @Module({
   imports: [

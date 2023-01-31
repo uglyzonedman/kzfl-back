@@ -28,7 +28,7 @@ export class AuthService {
       password: await hash(dto.password, salt),
       name: dto.name,
       surname: dto.surname,
-      roles: { id: 1 },
+      roles: { id: dto.roleId },
     })
     const tokens = await this.createToken(newUser)
 

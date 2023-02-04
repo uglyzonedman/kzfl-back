@@ -3,18 +3,21 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { OrdersModel } from './orders.model'
 import { OrdersDto } from './dto/orders.dto'
+import { OrderResponseDTO } from "../orders-response/orders-response.dto";
+import { OrdersResponseModel } from "../orders-response/orders-response.model";
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectRepository(OrdersModel) private readonly ordersModel: Repository<OrdersModel>,
-  ) {}
+    @InjectRepository(OrdersResponseModel) private readonly ordersResponseModel: Repository<OrdersResponseModel>,
+  ) { }
 
   async create(ownerId: number, dto: OrdersDto) {
     const defaultValue = {
-      title: '',
-      description: '',
-      price: 0,
+      title: dto.title,
+      description: dto.description,
+      price: dto.price,
       views: 0,
       users: { id: ownerId },
     }
@@ -34,7 +37,7 @@ export class OrdersService {
   }
 
   async getById(id: number) {
-    const currentOrder = await this.ordersModel.findOneBy({id})
+    const currentOrder = await this.ordersModel.findOneBy({ id })
 
     if (!currentOrder) throw new BadRequestException('Такого заказа нет')
 
@@ -54,4 +57,21 @@ export class OrdersService {
     return await this.ordersModel.save(order)
 
   }
+
+  // async createOrderResponse(userId: number, dto: OrderResponseDTO) {
+  //   const defaultValue = {
+  //     comments: dto.comments,
+  //     day: dto.day,
+  //     price: dto.price,
+  //     users: {
+  //       id: userId
+  //     },
+  //     orders: {
+  //       id: dto.ordersId
+  //     }
+  //   }
+  //   const newOrder = await this.ordersResponseModel.create(defaultValue)
+  //   const order = await this.ordersResponseModel.save(newOrder)
+  //   return order.id
+  // }
 }

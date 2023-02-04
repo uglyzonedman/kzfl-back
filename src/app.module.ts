@@ -18,6 +18,7 @@ import { ProfessionsModule } from './professions/professions.module'
 import { FilesModule } from './files/files.module'
 import { MulterModule } from '@nestjs/platform-express'
 import { CategoriesModule } from './categories/categories.module'
+import { OrdersResponseModule } from './orders-response/orders-response.module'
 
 @Module({
   imports: [
@@ -52,8 +53,9 @@ import { CategoriesModule } from './categories/categories.module'
     ProfessionsModule,
     FilesModule,
     CategoriesModule,
+    OrdersResponseModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
 import { Base } from '../utils/base'
 import { UsersModel } from '../users/users.model'
+import { OrdersResponseModel } from '../orders-response/orders-response.model'
 
 @Entity('orders')
 export class OrdersModel extends Base {
@@ -16,7 +17,10 @@ export class OrdersModel extends Base {
   @Column({ default: 0 })
   views: number
 
-  @ManyToOne(() => UsersModel, users => users.orders,{onDelete: 'CASCADE'})
+  @ManyToOne(() => UsersModel, users => users.orders, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   users: UsersModel
+
+  @OneToMany(() => OrdersResponseModel, ordersResponse => ordersResponse.orders)
+  ordersResponse: OrdersResponseModel[]
 }

@@ -34,62 +34,10 @@ export class UsersService {
     return user
   }
 
-  // async getByLogin(login: string) {
-  //   const user = await this.usersModel.findOne({
-  //     where: { login },
-  //     relations: {
-  //       countries: true,
-  //       roles: true,
-  //       genders: true,
-  //       languages: true,
-  //       skillsSelected: { skills: true },
-  //       rating_to: { owners: true },
-  //       rating_from: true,
-  //       professionsSelected: { professions: true },
-  //       city: true,
-  //     },
-  //   })
-  //
-  //   if (!user) throw new BadRequestException('Пользователь не найден')
-  //
-  //   return user
-  // }
-
-  // async updateProfile(id: number, dto: UsersDto) {
-  //   const user = await this.getById(id)
-  //   const salt = await genSalt(10)
-  //   const isSameUser = await this.usersModel.findOne({
-  //     where: {
-  //       email: dto.email,
-  //     },
-  //   })
-  //
-  //   if (isSameUser && id !== isSameUser.id) throw new NotFoundException('Почта занята')
-  //
-  //   if (dto.password) {
-  //     user.password = await hash(dto.password, salt)
-  //   }
-  //   // user.email = dto.email
-  //   // user.name = dto.name
-  //   // user.surname = dto.surname
-  //   // user.genders = dto.genders
-  //   // user.languages = dto.languages
-  //   // user.countries = dto.countries
-  //   user.about = dto.about
-  //   user.title = dto.title
-  //   await this.usersModel.save(user)
-  //   return
-  // }
+  
 
   async updateDescription(id: number, dto: UsersDto) {
     const user = await this.getById(id)
-
-    // user.email = dto.email
-    // user.name = dto.name
-    // user.surname = dto.surname
-    // user.genders = dto.genders
-    // user.languages = dto.languages
-    // user.countries = dto.countries
     user.about = dto.about
     user.title = dto.title
     await this.usersModel.save(user)

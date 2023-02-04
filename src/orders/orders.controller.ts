@@ -10,13 +10,14 @@ import {
   ValidationPipe
 } from "@nestjs/common";
 import { OrdersService } from './orders.service'
-import { User } from '../users/decorators/users.decorator'
+import { EblanUser, User } from '../users/decorators/users.decorator'
 import { OrdersDto } from './dto/orders.dto'
 import { JwtAuthGuard } from '../auth/guards/jwt.guard'
+import { OrderResponseDTO } from "../orders-response/orders-response.dto";
 
 @Controller('orders')
 export class OrdersController {
-  constructor(private readonly ordersService: OrdersService) {}
+  constructor(private readonly ordersService: OrdersService,) { }
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
@@ -56,4 +57,11 @@ export class OrdersController {
   async updateView(@Param("id") id: number) {
     return this.ordersService.updateView(id)
   }
+  // @UsePipes(new ValidationPipe())
+  // @Post('create/response')
+  // @HttpCode(200)
+  // async createOrderResponse(@EblanUser('id') userId: number, @Body() dto: OrderResponseDTO) {
+  //   return this.ordersService.createOrderResponse(userId, dto)
+  // }
+
 }

@@ -62,13 +62,20 @@ export class UsersController {
   }
 
   @UsePipes(new ValidationPipe())
+  @Put('profile/role')
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
+  async updateRole(@User('id') id: number, @Body() dto: any) {
+    return this.usersService.updateRole(id, dto)
+  }
+
+  @UsePipes(new ValidationPipe())
   @Put('profile')
   @HttpCode(200)
   @UseGuards(JwtAuthGuard)
   async updateProfile(@User('id') id: number, @Body() dto: any) {
     return this.usersService.updateProfile(id, dto)
   }
-
 
   @UsePipes(new ValidationPipe())
   @Patch('files')
@@ -81,8 +88,7 @@ export class UsersController {
   @UsePipes(new ValidationPipe())
   @Post('update-view/:login')
   @HttpCode(200)
-  async updateView(@Param("login") login: string) {
+  async updateView(@Param('login') login: string) {
     return this.usersService.updateView(login)
   }
-
 }

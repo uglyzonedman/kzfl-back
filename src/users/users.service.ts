@@ -18,14 +18,14 @@ export class UsersService {
       where: { id },
       relations: {
         countries: true,
-              roles: true,
-              genders: true,
-              languages: true,
-              skillsSelected: { skills: true },
-              rating_to: { owners: true },
-              rating_from: true,
-              professionsSelected: { professions: true },
-              city: true,
+        roles: true,
+        genders: true,
+        languages: true,
+        skillsSelected: { skills: true },
+        rating_to: { owners: true },
+        rating_from: true,
+        professionsSelected: { professions: true },
+        city: true,
       },
     })
 
@@ -34,12 +34,16 @@ export class UsersService {
     return user
   }
 
-  
-
   async updateDescription(id: number, dto: UsersDto) {
     const user = await this.getById(id)
     user.about = dto.about
     user.title = dto.title
+    await this.usersModel.save(user)
+    return
+  }
+  async updateRole(id: number, dto: UsersDto) {
+    const user = await this.getById(id)
+    user.roles = dto.roleId
     await this.usersModel.save(user)
     return
   }
@@ -102,7 +106,5 @@ export class UsersService {
     user.view++
 
     return await this.usersModel.save(user)
-
-
   }
 }

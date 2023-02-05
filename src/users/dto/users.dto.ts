@@ -9,4 +9,5 @@ export class UsersDto {
   password?: string
   about?: string
   title?: string
+  roleId?: any
 }

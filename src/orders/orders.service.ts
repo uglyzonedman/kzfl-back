@@ -33,11 +33,15 @@ export class OrdersService {
   }
 
   async getAll() {
-    return await this.ordersModel.find()
+    return await this.ordersModel.find({ relations: { ordersResponse: true } })
   }
 
   async getById(id: number) {
-    const currentOrder = await this.ordersModel.findOneBy({ id })
+    const currentOrder = await this.ordersModel.findOne({
+      where: { id }, relations: {
+        users: true
+      }
+    })
 
     if (!currentOrder) throw new BadRequestException('Такого заказа нет')
 

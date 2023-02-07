@@ -7,7 +7,7 @@ import { genSalt, hash } from 'bcryptjs'
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(UsersModel) private readonly usersModel: Repository<UsersModel>) {}
+  constructor(@InjectRepository(UsersModel) private readonly usersModel: Repository<UsersModel>) { }
 
   async getAll() {
     return await this.usersModel.find({ relations: { rating_to: true } })
@@ -68,7 +68,7 @@ export class UsersService {
   }
 
   async getAllFreelancers() {
-    return await this.usersModel.find({
+    const freelancers = await this.usersModel.find({
       where: {
         roles: {
           name: 'freelancer',
@@ -83,6 +83,8 @@ export class UsersService {
         },
       },
     })
+    return freelancers.sort((a, b) => b.rating - a.rating)
+
   }
 
   async updateView(login: string) {

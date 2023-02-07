@@ -80,7 +80,7 @@ export class UsersModel extends Base {
   @OneToMany(() => OrdersResponseModel, ordersResponse => ordersResponse.owner)
   ordersResponse: OrdersResponseModel[]
 
-  @Column({ default: 4 })
+  @Column({ default: 0 })
   rating: number
 
   @Column({ default: 0 })

@@ -28,6 +28,6 @@ export class OrdersResponseService {
     }
 
     async getFullResponseByOrderId(id: number) {
-        return await this.ordersResponseModel.find({ where: { orders: { id: id } }, relations: { owner: true } })
+        return await this.ordersResponseModel.find({ where: { orders: { id: id } }, relations: { owner: { professionsSelected: { professions: true } } } })
     }
 }
